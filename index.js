@@ -9,7 +9,7 @@ parser: SerialPort.parsers.readline("\n")
 serialport.on('open', function(){
     console.log('---Lancement lecture---');
     serialport.on('data', function(data){
-        data = data.replace(/\uFFFD/g, '')
+        data = data.replace(/\uFFFD/g, '') //regex
         dispatch(data);
     });
    });
