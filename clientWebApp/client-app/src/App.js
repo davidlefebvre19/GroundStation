@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import logo from './logo.svg';
 import './App.css';
 import BNOA from './Components/BNOA'
-const soi = io('http://localhost');
-const socket = soi.connect('http://localhost:3000', {reconnect: true});
+
+var io = require('socket.io-client');
+const socket = io.connect('http://localhost:3000', {reconnect: true});
 
 class App extends Component {
   constructor(props){
