@@ -4,6 +4,10 @@ io.on('connection', client => {
         console.log(data);
         client.broadcast.emit("ORI",data)
     }); 
+    client.on('SPEEDPITOT', (data) => {
+        console.log(data);
+        client.broadcast.emit("SPEEDPITOT",data)
+    });
   });
 io.listen(3000);
 

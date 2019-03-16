@@ -5,5 +5,8 @@ function getRandomInt(max) {
   }
 // imagine l usb js
 setInterval(function(){
-    socket.emit("BNOA",{x: getRandomInt(500),y: getRandomInt(500),z: getRandomInt(500)}, 500)}, 500)
+    socket.emit("BNOA",{x: getRandomInt(500),y: getRandomInt(500),z: getRandomInt(500)})
+    socket.emit("SPEEDPITOT",{s: getRandomInt(50)})
+
+},1000)
 

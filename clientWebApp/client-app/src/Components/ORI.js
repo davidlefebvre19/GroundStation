@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
+import {Col,Row,Card} from "react-materialize"
 
 class BNOA extends Component {
   constructor(props){
@@ -23,10 +24,10 @@ class BNOA extends Component {
     this.props.socket.on('ORI', ({x,y,z})=>{
       that.setState({
         x: x,y: y,z: z,
-        XPoints: [...that.state.XPoints,x], //that.state.Xpoint.push(x)
-        YPoints: [...that.state.YPoints,y],
-        ZPoints: [...that.state.ZPoints,z],
-        data:getData(that.state.XPoints,that.state.YPoints)
+        XPoints: [...that.state.XPoints.slice(-10),x], //that.state.Xpoint.push(x)
+        YPoints: [...that.state.YPoints.slice(-10),y],
+        ZPoints: [...that.state.ZPoints.slice(-10),z],
+        data:getData(that.state.XPoints,that.state.YPoints,that.state.ZPoints)
       });
     });
 
@@ -34,13 +35,10 @@ class BNOA extends Component {
   render() {
     return (
       <div className="component">
-        <p>BNOA</p>
-        <ul>
-          <li>x: {this.state.x}</li>
-          <li>y: {this.state.y}</li>
-          <li>z: {this.state.z}</li>
-        </ul>
-        <Line data={this.state.data}/>
+          <Card className ='grey lighten-3' textClassName='grey-text' title='BNA A'>
+          <Line data={this.state.data}/>
+          <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
+          </Card>
 
       </div>
     );
