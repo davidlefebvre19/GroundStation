@@ -1,5 +1,7 @@
 const fs = require('fs')
 var SerialPort = require("serialport");
+var io = require('socket.io-client');
+var socket = io.connect('http://localhost:3000', {reconnect: true});
 
 var serialport = new SerialPort("/dev/ttyUSB0",{
 baudRate: 9600,
@@ -48,19 +50,22 @@ function cleanData(data){
   }
 function dispatch(data){
     let h = getHeader(data)
-    if(h.includes("BNOA")){
-        handleBNO(cleanData(data)) 
+    if(h.includes("ORI")){
+        handleORI(cleanData(data))
+    }else if(h.includes("BMP")){
+        /* to do */
     }else if(h.includes("GPS")){
         /* to do */
-    }else if(h.includes("BNOZ")){
+    }else if(h.includes("MPX")){
         /* to do */
     }else if(h.includes("ERROR")){
        console.log("donnee non dispatchable "+data) 
     }
 }
 
-function handleBNO(datas){
+function handleORI(datas){
     console.log(datas.join(";"))
+    socket.emit("ORI", {x:datas[0], y:datas[1], z:datas[2]})
 }
 
 /*
