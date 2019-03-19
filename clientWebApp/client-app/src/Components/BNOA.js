@@ -9,28 +9,7 @@ const getData =(HPoints, BPoints)=>({
   labels: Array(HPoints.length).fill(""),
   datasets: [
     {
-      label: 'BNOA',
-      fill: false,
-      lineTension: 0.5,
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: '#ff0000',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: '#ff0000',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#ff0000',
-      pointHoverBorderColor: '#ff0000',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: BPoints
-    },
-    {
-      label: 'Top sensor',
+      label: 'ORI',
       fill: false,
       lineTension: 0.5,
       backgroundColor: 'rgba(75,192,192,0.4)',
@@ -82,7 +61,7 @@ class BNOA extends Component {
   render() {
     return (
       <div className="component">
-          <Card className ='grey lighten-3' textClassName='grey-text' title='BNA A'>
+          <Card className ='grey lighten-3' textClassName='grey-text' title='ORI A'>
           <Line data={this.state.data}/>
           <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
           </Card>
