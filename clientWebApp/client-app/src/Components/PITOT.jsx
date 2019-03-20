@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Card} from "react-materialize"
 import ReactSpeedometer from "react-d3-speedometer"
 
-class SPEEDPITOT extends Component {
+class PITOT extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -14,9 +14,9 @@ class SPEEDPITOT extends Component {
   }
   componentWillMount(){
     var that = this
-    this.props.socket.on('SPEEDPITOT', ({s})=>{
+    this.props.socket.on('PITOT', ({x})=>{
       that.setState({
-        speed: s
+        speed: x
       });
     });
 
@@ -42,4 +42,4 @@ class SPEEDPITOT extends Component {
   }
 }
 
-export default SPEEDPITOT;
+export default PITOT;

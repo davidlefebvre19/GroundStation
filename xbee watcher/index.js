@@ -50,22 +50,27 @@ function cleanData(data){
   }
 function dispatch(data){
     let h = getHeader(data)
-    if(h.includes("ORI")){
-        handleORI(cleanData(data))
-    }else if(h.includes("BMP")){
-        /* to do */
+    if(h.includes("BNOA")){
+        handleBNOA(cleanData(data))
+    }else if(h.includes("PITOT")){
+        handlePITOT(cleanData(data))
     }else if(h.includes("GPS")){
         /* to do */
-    }else if(h.includes("MPX")){
+    }else if(h.includes("PITOT")){
         /* to do */
     }else if(h.includes("ERROR")){
        console.log("donnee non dispatchable "+data) 
     }
 }
 
-function handleORI(datas){
+function handleBNOA(datas){
     console.log(datas.join(";"))
-    socket.emit("ORI", {x:datas[0], y:datas[1], z:datas[2]})
+    socket.emit("BNOA", {x:datas[0], y:datas[1], z:datas[2]})
+}
+
+function handlePITOT(datas){
+    console.log(datas.join(";"))
+    socket.emit("PITOT", {x:datas[0]})
 }
 
 /*

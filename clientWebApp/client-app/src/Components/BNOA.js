@@ -21,7 +21,7 @@ class BNOA extends Component {
   }
   componentWillMount(){
     var that = this
-    this.props.socket.on('ORI', ({x,y,z})=>{
+    this.props.socket.on('BNOA', ({x,y,z})=>{
       that.setState({
         x: x,y: y,z: z,
         XPoints: [...that.state.XPoints.slice(-10),x], //that.state.Xpoint.push(x)
@@ -46,12 +46,10 @@ class BNOA extends Component {
 }
 
 const getData =(XPoints,YPoints,ZPoints)=>({
-  // while( HPoints.length > BPoints.length ) { HPoints = HPoints.slice(1) }
-  // while( BPoints.length > HPoints.length ) { BPoints = BPoints.slice(1) }
   labels: Array(XPoints.length).fill(""),
   datasets: [
     {
-      label: 'ORI x',
+      label: 'BNOA x',
       fill: false,
       lineTension: 0.5,
       backgroundColor: 'rgba(75,192,192,0.4)',
@@ -72,7 +70,7 @@ const getData =(XPoints,YPoints,ZPoints)=>({
       data: XPoints
     },
     {
-      label: 'ORI y',
+      label: 'BNOA y',
       fill: false,
       lineTension: 0.5,
       backgroundColor: 'rgba(75,192,192,0.4)',
@@ -93,7 +91,7 @@ const getData =(XPoints,YPoints,ZPoints)=>({
       data: YPoints
     },
     {
-      label: 'ORI z',
+      label: 'BNOA z',
       fill: false,
       lineTension: 0.5,
       backgroundColor: 'rgba(75,192,192,0.4)',
@@ -111,7 +109,7 @@ const getData =(XPoints,YPoints,ZPoints)=>({
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: YPoints
+      data: ZPoints
     }
   ]
 });
