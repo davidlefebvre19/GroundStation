@@ -8,6 +8,10 @@ io.on('connection', client => {
         console.log(data);
         client.broadcast.emit("PITOT",data)
     });
+    client.on('BMP', (data) => {
+        console.log(data);
+        client.broadcast.emit("BMP",data)
+    });
   });
 io.listen(3000);
 

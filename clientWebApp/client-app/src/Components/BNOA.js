@@ -35,7 +35,7 @@ class BNOA extends Component {
   render() {
     return (
       <div className="component">
-          <Card className ='grey lighten-3' textClassName='grey-text' title='BNA A'>
+          <Card className ='grey lighten-3' textClassName='grey-text' title='BNO A'>
           <Line data={this.state.data}/>
           <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
           </Card>
