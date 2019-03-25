@@ -54,8 +54,8 @@ function dispatch(data){
         handleBNOA(cleanData(data))
     }else if(h.includes("PITOT")){
         handlePITOT(cleanData(data))
-    }else if(h.includes("GPS")){
-        /* to do */
+    }else if(h.includes("BMP")){
+        handleBMP(cleanData(data))
     }else if(h.includes("PITOT")){
         /* to do */
     }else if(h.includes("ERROR")){
@@ -71,6 +71,11 @@ function handleBNOA(datas){
 function handlePITOT(datas){
     console.log(datas.join(";"))
     socket.emit("PITOT", {x:datas[0]})
+}
+
+function handleBMP(datas){
+    console.log(datas.join(";"))
+    socket.emit("BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
 }
 
 /*
