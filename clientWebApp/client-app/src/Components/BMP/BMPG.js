@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
 import {Col,Row,Card} from "react-materialize"
+import BMPG from './BMPH';
 
 class BMPT extends Component {
     render() {
         return (
           <div className="component">
-              <Card className ='grey lighten-3' textClassName='grey-text' title='Temperature'>
+              <Card className ='grey lighten-3' textClassName='grey-text' title='Gas'>
               <Line data={this.state.data}/>
-              <p className="center">{this.state.temp}</p>
+              <p className="center">{this.state.gas}</p>
               </Card>
           </div>
         );
@@ -17,8 +18,8 @@ class BMPT extends Component {
     constructor(props){
         super(props);
         this.state = {
-          temp: 0,
-          tempPoints: Array(1).fill(null),
+          gas: 0,
+          gasPoints: Array(1).fill(null),
           data: []
         }
       }
@@ -29,11 +30,11 @@ class BMPT extends Component {
 
     componentWillMount(){
         var that = this
-        this.props.socket.on('BMP', ({temp})=>{
+        this.props.socket.on('BMP', ({gas})=>{
           that.setState({
-            temp: temp,
-            tempPoints: [...that.state.tempPoints.slice(-10),temp], //that.state.Xpoint.push(x)
-            data:getData(that.state.tempPoints)
+            gas: gas,
+            gasPoints: [...that.state.gasPoints.slice(-10),gas], //that.state.Xpoint.push(x)
+            data:getData(that.state.gasPoints)
           });
         });
     
@@ -41,14 +42,14 @@ class BMPT extends Component {
 
 }
 
-export default BMPT;
+export default BMPG;
 
 
-const getData =(tempPoints)=>({
-    labels: Array(tempPoints.length).fill(""),
+const getData =(gasPoints)=>({
+    labels: Array(gasPoints.length).fill(""),
     datasets: [
       {
-        label: 'temperature',
+        label: 'Gas',
         fill: false,
         lineTension: 0.5,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -66,7 +67,7 @@ const getData =(tempPoints)=>({
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: tempPoints
+        data: gasPoints
         }
     ]
 })

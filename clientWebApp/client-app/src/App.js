@@ -6,6 +6,8 @@ import './App.css';
 import BNOA from './Components/BNOA'
 import PITOT from './Components/PITOT'
 import BMPT from './Components/BMP/BMPT'
+import BMPA from './Components/BMP/BMPA'
+import BMPP from './Components/BMP/BMPP'
 
 var io = require('socket.io-client');
 const socket = io.connect('http://localhost:3000', {reconnect: true});
@@ -34,6 +36,12 @@ class App extends Component {
         </Col>
         <Col s={12} m={6}>
           <BMPT socket={socket}/>
+        </Col>
+        <Col s={12} m={6}>
+          <BMPP socket={socket}/>
+        </Col>
+        <Col s={12} m={6}>
+          <BMPA socket={socket}/>
         </Col>
       </Row>
       </div>

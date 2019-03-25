@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
 import {Col,Row,Card} from "react-materialize"
 
-class BMPT extends Component {
+class BMPH extends Component {
     render() {
         return (
           <div className="component">
-              <Card className ='grey lighten-3' textClassName='grey-text' title='Temperature'>
+              <Card className ='grey lighten-3' textClassName='grey-text' title='Humidity'>
               <Line data={this.state.data}/>
-              <p className="center">{this.state.temp}</p>
+              <p className="center">{this.state.hum}</p>
               </Card>
           </div>
         );
@@ -17,8 +17,8 @@ class BMPT extends Component {
     constructor(props){
         super(props);
         this.state = {
-          temp: 0,
-          tempPoints: Array(1).fill(null),
+          hum: 0,
+          humPoints: Array(1).fill(null),
           data: []
         }
       }
@@ -29,11 +29,11 @@ class BMPT extends Component {
 
     componentWillMount(){
         var that = this
-        this.props.socket.on('BMP', ({temp})=>{
+        this.props.socket.on('BMP', ({hum})=>{
           that.setState({
-            temp: temp,
-            tempPoints: [...that.state.tempPoints.slice(-10),temp], //that.state.Xpoint.push(x)
-            data:getData(that.state.tempPoints)
+            hum: hum,
+            humPoints: [...that.state.humPoints.slice(-10),hum], //that.state.Xpoint.push(x)
+            data:getData(that.state.humPoints)
           });
         });
     
@@ -41,14 +41,14 @@ class BMPT extends Component {
 
 }
 
-export default BMPT;
+export default BMPH;
 
 
-const getData =(tempPoints)=>({
-    labels: Array(tempPoints.length).fill(""),
+const getData =(humPoints)=>({
+    labels: Array(humPoints.length).fill(""),
     datasets: [
       {
-        label: 'temperature',
+        label: 'Humidity',
         fill: false,
         lineTension: 0.5,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -66,7 +66,7 @@ const getData =(tempPoints)=>({
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: tempPoints
+        data: humPoints
         }
     ]
 })
