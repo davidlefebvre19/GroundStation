@@ -12,6 +12,18 @@ io.on('connection', client => {
         console.log(data);
         client.broadcast.emit("BMP",data)
     });
+    client.on('LORABNOA', (data) => { 
+        console.log(data);
+        client.broadcast.emit("LORABNOA",data)
+    }); 
+    client.on('LORAPITOT', (data) => {
+        console.log(data);
+        client.broadcast.emit("LORAPITOT",data)
+    });
+    client.on('LORABMP', (data) => {
+        console.log(data);
+        client.broadcast.emit("LORABMP",data)
+    });
   });
 io.listen(3000);
 
