@@ -85,6 +85,8 @@ function dispatch(data){
         handleGPS1(cleanData(data))
     }else if(h.includes("GPS2")){
         handleGPS2(cleanData(data))
+    }else if(h.includes("FSR")){
+        handleFSR(cleanData(data))
     }else if(h.includes("ERROR")){
        console.log("donnee non dispatchable "+data) 
     }
@@ -113,6 +115,11 @@ function handleGPS1(datas){
 function handleGPS2(datas){
     console.log(datas.join(";"))
     socket.emit(root+"GPS1", {speed:datas[0]})
+}
+
+function handleFSR(datas){
+    console.log(datas.join(";"))
+    socket.emit(root+"FSR", {FSR:datas[0]})
 }
 
 

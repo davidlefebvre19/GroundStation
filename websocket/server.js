@@ -20,6 +20,10 @@ io.on('connection', client => {
         console.log(data);
         client.broadcast.emit("GPS2",data)
     });
+    client.on('FSR', (data) => {
+        console.log(data);
+        client.broadcast.emit("FSR",data)
+    });
 
 
 

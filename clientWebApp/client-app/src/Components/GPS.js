@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client'
 
 export default class Gps extends Component {
@@ -9,7 +9,6 @@ export default class Gps extends Component {
        Lat: 0,
        Lon: 0,
        alt: 0,
-       mpx: 0,
        marker: null
      }
    }
@@ -19,13 +18,12 @@ export default class Gps extends Component {
    componentWillMount(){
       const socket = this.props.socket
       var that = this
-      socket.on('GPS', ({Lat,Lon,alt,mpx}) => {
+      socket.on('GPS1', ({Lat,Lon,alt}) => {
         that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
         that.setState({
           Lat: Lat,
           Lon: Lon,
           alt: alt,
-          mpx: mpx
         })
       })
    }
@@ -68,3 +66,4 @@ export default class Gps extends Component {
        );
    }
 }
+*/

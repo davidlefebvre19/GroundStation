@@ -10,7 +10,8 @@ import BMPA from './Components/BMP/BMPA'
 import BMPP from './Components/BMP/BMPP'
 import BMPG from './Components/BMP/BMPG'
 import BMPH from './Components/BMP/BMPH'
-import Gps from './Components/GPS'
+import GPS from './Components/GPS'
+import FSR from './Components/FSR'
 
 var io = require('socket.io-client');
 const socket = io.connect('http://localhost:3000', {reconnect: true});
@@ -68,7 +69,10 @@ export default class App extends Component {
           <BMPG socket={socket}/>
         </Col>
         <Col s={12} m={6}>
-          <Gps socket={socket}/>
+          <FSR socket={socket}/>
+        </Col>
+        <Col s={12} m={6}>
+          <GPS socket={socket}/>
         </Col>
       </Row>
       </div>
