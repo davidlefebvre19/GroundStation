@@ -10,6 +10,7 @@ import BMPA from './Components/BMP/BMPA'
 import BMPP from './Components/BMP/BMPP'
 import BMPG from './Components/BMP/BMPG'
 import BMPH from './Components/BMP/BMPH'
+import Gps from './Components/GPS'
 
 var io = require('socket.io-client');
 const socket = io.connect('http://localhost:3000', {reconnect: true});
@@ -65,6 +66,9 @@ export default class App extends Component {
         </Col>
         <Col s={12} m={6}>
           <BMPG socket={socket}/>
+        </Col>
+        <Col s={12} m={6}>
+          <Gps socket={socket}/>
         </Col>
       </Row>
       </div>
