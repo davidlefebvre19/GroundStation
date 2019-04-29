@@ -2,7 +2,7 @@ const fs = require('fs')
 var SerialPort = require("serialport");
 var io = require('socket.io-client');
 var socket = io.connect('http://localhost:3000', {reconnect: true});
-
+var root = ''
 var serialport = new SerialPort("/dev/ttyUSB0",{
 baudRate: 9600,
 parser: SerialPort.parsers.readline("\n")
@@ -65,17 +65,17 @@ function dispatch(data){
 
 function handleBNOA(datas){
     console.log(datas.join(";"))
-    socket.emit("BNOA", {x:datas[0], y:datas[1], z:datas[2]})
+    socket.emit(root+"BNOA", {x:datas[0], y:datas[1], z:datas[2]})
 }
 
 function handlePITOT(datas){
     console.log(datas.join(";"))
-    socket.emit("PITOT", {x:datas[0]})
+    socket.emit(root+"PITOT", {x:datas[0]})
 }
 
 function handleBMP(datas){
     console.log(datas.join(";"))
-    socket.emit("BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
+    socket.emit(root+"BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
 }
 
 /*
