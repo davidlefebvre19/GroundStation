@@ -5,6 +5,7 @@ import {Col,Row,Card} from "react-materialize"
 class BNOA extends Component {
   constructor(props){
     super(props);
+    this.connectOnSocket = this.connectOnSocket.bind(this)
     this.state = {
       x: 0,
       y: 0,
@@ -12,16 +13,29 @@ class BNOA extends Component {
       XPoints: Array(1).fill(null),
       YPoints: Array(1).fill(null),
       ZPoints: Array(1).fill(null),
-      data: []
+      data: [],
+      lora: props.lora
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    this.setState({ lora: nextProps.lora });
+
+    //this.connectOnSocket()
   }
   componentDidMount(){
     this.setState({data: getData([])})
 
   }
-  componentWillMount(){
+  connectOnSocket(){
     var that = this
-    this.props.socket.on('BNOA', ({x,y,z})=>{
+    var txt = ""
+    if(this.state.lora){
+      txt = "LORABNOA"
+    }else{
+      txt = "BNOA"
+    }
+    this.props.socket.on(txt, ({x,y,z})=>{
       that.setState({
         x: x,y: y,z: z,
         XPoints: [...that.state.XPoints.slice(-10),x], //that.state.Xpoint.push(x)
@@ -30,12 +44,16 @@ class BNOA extends Component {
         data:getData(that.state.XPoints,that.state.YPoints,that.state.ZPoints)
       });
     });
+  }
+  componentWillMount(){
+    this.connectOnSocket()
 
   }
   render() {
     return (
       <div className="component">
-          <Card className ='grey lighten-3' textClassName='grey-text' title='BNO A'>
+          <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
+          <Card className ='grey lighten-3' textClassName='grey-text' title='Acceleration'>
           <Line data={this.state.data}/>
           <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
           </Card>
