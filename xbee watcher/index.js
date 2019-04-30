@@ -8,6 +8,31 @@ baudRate: 9600,
 parser: SerialPort.parsers.readline("\n")
 });
 
+function createMap(values){
+    /* options = {
+    url: "https://maps.googleapis.com/maps/api/staticmap?path=color:0x0000ff|weight:5|"+values.join("|")+"&maptype=satellite&size=650x512",
+    dest: '../public/photo.jpg'        // Save to /path/to/dest/photo.jpg
+    }
+    download.image(options)
+    .then(({ filename, image }) => {
+    console.log('File saved to', filename)
+    }).catch((err) => {
+      console.log("error")
+    }) */
+  }
+  function median(values) {
+  
+      values.sort( function(a,b) {return a - b;} );
+  
+      var half = Math.floor(values.length/2);
+  
+      if(values.length % 2)
+          return values[half];
+      else
+          return (values[half-1] + values[half]) / 2.0;
+  }
+
+
 serialport.on('open', function(){
     console.log('---Lancement lecture---');
     serialport.on('data', function(data){
@@ -56,8 +81,12 @@ function dispatch(data){
         handlePITOT(cleanData(data))
     }else if(h.includes("BMP")){
         handleBMP(cleanData(data))
-    }else if(h.includes("PITOT")){
-        /* to do */
+    }else if(h.includes("GPS1")){
+        handleGPS1(cleanData(data))
+    }else if(h.includes("GPS2")){
+        handleGPS2(cleanData(data))
+    }else if(h.includes("FSR")){
+        handleFSR(cleanData(data))
     }else if(h.includes("ERROR")){
        console.log("donnee non dispatchable "+data) 
     }
@@ -78,8 +107,19 @@ function handleBMP(datas){
     socket.emit(root+"BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
 }
 
-/*
-BNOA: x;x;x
-BNOZ: x;x;x
-GPS: x;x;x
-*/
+function handleGPS1(datas){
+    console.log(datas.join(";"))
+    socket.emit(root+"GPS1", {Lat:datas[0], Lon:datas[1], alt:datas[2]})
+}
+
+function handleGPS2(datas){
+    console.log(datas.join(";"))
+    socket.emit(root+"GPS2", {x:datas[0]})
+}
+
+function handleFSR(datas){
+    console.log(datas.join(";"))
+    socket.emit(root+"FSR", {FSR:datas[0]})
+}
+
+

@@ -12,6 +12,21 @@ io.on('connection', client => {
         console.log(data);
         client.broadcast.emit("BMP",data)
     });
+    client.on('GPS1', (data) => {
+        console.log(data);
+        client.broadcast.emit("GPS1",data)
+    });
+    client.on('GPS2', (data) => {
+        console.log(data);
+        client.broadcast.emit("GPS2",data)
+    });
+    client.on('FSR', (data) => {
+        console.log(data);
+        client.broadcast.emit("FSR",data)
+    });
+
+
+
     client.on('LORABNOA', (data) => { 
         console.log(data);
         client.broadcast.emit("LORABNOA",data)
