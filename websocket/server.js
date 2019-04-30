@@ -14,7 +14,7 @@ io.on('connection', client => {
     });
     client.on('GPS1', (data) => {
         console.log(data);
-        client.broadcast.emit("gPS1",data)
+        client.broadcast.emit("GPS1",data)
     });
     client.on('GPS2', (data) => {
         console.log(data);

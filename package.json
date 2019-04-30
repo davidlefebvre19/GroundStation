@@ -1,3 +1,5 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "leaflet": "^1.4.0"
+  }
 }

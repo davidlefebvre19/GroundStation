@@ -1,4 +1,4 @@
-/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client'
 
 export default class Gps extends Component {
@@ -15,11 +15,11 @@ export default class Gps extends Component {
   componentDidMount(){
 
   }
-   componentWillMount(){
+  componentWillMount(){
       const socket = this.props.socket
       var that = this
       socket.on('GPS1', ({Lat,Lon,alt}) => {
-        that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
+        //that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
         that.setState({
           Lat: Lat,
           Lon: Lon,
@@ -27,6 +27,8 @@ export default class Gps extends Component {
         })
       })
    }
+   
+   /*
    componentDidMount(){
       var mymap = L.map('mapid').setView([50.802557, 4.404390], 13);
       L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamNociIsImEiOiJjamluOGs4dXQwYmVuM3FxN2o5ajlsMHQ5In0.91W6DkAdYlnty7ViosJwkw', {
@@ -41,6 +43,7 @@ export default class Gps extends Component {
       marker.setLatLng(newLatLng);
 
    }
+   */
 
      render() {
 
@@ -66,4 +69,3 @@ export default class Gps extends Component {
        );
    }
 }
-*/

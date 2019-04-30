@@ -6,7 +6,7 @@ class FSR extends Component {
     render() {
         return (
           <div className="component">
-              <Card className ='grey lighten-3' textClassName='grey-text' title='Altitude'>
+              <Card className ='grey lighten-3' textClassName='grey-text' title='Impact Detector'>
               <Line data={this.state.data}/>
               <p className="center">{this.state.FSR}</p>
               </Card>

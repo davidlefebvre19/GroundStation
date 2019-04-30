@@ -114,7 +114,7 @@ function handleGPS1(datas){
 
 function handleGPS2(datas){
     console.log(datas.join(";"))
-    socket.emit(root+"GPS1", {speed:datas[0]})
+    socket.emit(root+"GPS2", {x:datas[0]})
 }
 
 function handleFSR(datas){
