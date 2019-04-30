@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client'
+import L from 'leaflet';
 
 export default class Gps extends Component {
    constructor(props) {
@@ -19,7 +20,7 @@ export default class Gps extends Component {
       const socket = this.props.socket
       var that = this
       socket.on('GPS1', ({Lat,Lon,alt}) => {
-        //that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
+        that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
         that.setState({
           Lat: Lat,
           Lon: Lon,
@@ -28,7 +29,7 @@ export default class Gps extends Component {
       })
    }
    
-   /*
+   
    componentDidMount(){
       var mymap = L.map('mapid').setView([50.802557, 4.404390], 13);
       L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamNociIsImEiOiJjamluOGs4dXQwYmVuM3FxN2o5ajlsMHQ5In0.91W6DkAdYlnty7ViosJwkw', {
@@ -43,7 +44,7 @@ export default class Gps extends Component {
       marker.setLatLng(newLatLng);
 
    }
-   */
+   
 
      render() {
 
@@ -57,7 +58,7 @@ export default class Gps extends Component {
                  <p>Location of CanSat</p>
                </div>
 
-               <div className="row" id="mapid">
+               <div className="row" id="mapid" style={{height: "300px"}}>
                </div>
 
                <p>Location: {this.state.Lat}; {this.state.Lon},   Altitude {this.state.alt}m</p>
