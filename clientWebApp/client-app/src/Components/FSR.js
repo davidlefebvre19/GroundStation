@@ -19,24 +19,40 @@ class FSR extends Component {
         this.state = {
           FSR: 0,
           FSRPoints: Array(1).fill(null),
-          data: []
+          data: [],
+          lora: props.lora
         }
       }
     
+      componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        this.setState({ lora: nextProps.lora });
+      }
+
     componentDidMount(){
         this.setState({data: getData([])})
+        this.connectOnSocket()
     }
 
-    componentWillMount(){
-        var that = this
-        this.props.socket.on('FSR', ({FSR})=>{
-          that.setState({
+    connectOnSocket(){
+      var that = this
+      var txt = ""
+      if(this.state.lora){
+        txt = "LORABMP"
+      }else{
+        txt = "BMP"
+      }
+      this.props.socket.on(txt, ({FSR})=>{
+        that.setState({
             FSR: FSR,
             FSRPoints: [...that.state.FSRPoints.slice(-10),FSR], //that.state.Xpoint.push(x)
             data:getData(that.state.FSRPoints)
-          });
         });
-    
+      });
+    }
+
+    componentWillMount(){
+      this.connectOnSocket() 
     }
 
 }

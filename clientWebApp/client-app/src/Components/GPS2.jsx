@@ -5,36 +5,59 @@ import ReactSpeedometer from "react-d3-speedometer"
 class GPS2 extends Component {
   constructor(props){
     super(props);
+    this.connectOnSocket = this.connectOnSocket.bind(this)
     this.state = {
-      speed: 0
+      speed: 0,
+      lora: props.lora
     }
   }
-  componentDidMount(){
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    this.setState({ lora: nextProps.lora });
   }
-  componentWillMount(){
+
+  componentDidMount(){
+    this.setState({data: getData([])})
+    this.connectOnSocket()
+  }
+
+  connectOnSocket(){
     var that = this
-    this.props.socket.on('GPS2', ({x})=>{
+    var txt = ""
+    if(this.state.lora){
+      txt = "LORABMP"
+    }else{
+      txt = "BMP"
+    }
+    this.props.socket.on(txt, ({x})=>{
       that.setState({
-        speed: (x*1.852)
+          x: x,
+          xPoints: [...that.state.xPoints.slice(-10),x], //that.state.Xpoint.push(x)
+          data:getData(that.state.xPoints)
       });
     });
-
   }
+
+  componentWillMount(){
+    this.connectOnSocket() 
+  }
+
   render() {
     return (
       <div className="component">
+          <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
           <Card className ='grey lighten-3' textClassName='grey-text' title='SPEED GPS'>
-<ReactSpeedometer
-  maxValue={80}
-  value={this.state.speed}
-  needleColor="steelblue"
-  startColor="green"
-  segments={20}
-  endColor="red"
+            <ReactSpeedometer
+              maxValue={80}
+              value={this.state.speed}
+              needleColor="steelblue"
+              startColor="green"
+              segments={20}
+              endColor="red"
 
-/>
-          <p className="center">{this.state.speed} km/h</p>
+  />
+            <p className="center">{this.state.speed} km/h</p>
           </Card>
 
       </div>

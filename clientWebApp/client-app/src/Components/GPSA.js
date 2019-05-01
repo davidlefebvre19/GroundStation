@@ -6,9 +6,9 @@ class GPSA extends Component {
     render() {
         return (
           <div className="component">
-              <Card className ='grey lighten-3' textClassName='grey-text' title='Altitude GPS'>
+              <Card className ='grey lighten-3' textClassName='grey-text' title='speeditude GPS'>
               <Line data={this.state.data}/>
-              <p className="center">{this.state.alt}</p>
+              <p className="center">{this.state.speed}</p>
               </Card>
           </div>
         );
@@ -16,27 +16,45 @@ class GPSA extends Component {
 
     constructor(props){
         super(props);
+        this.connectOnSocket = this.connectOnSocket.bind(this)
         this.state = {
-          alt: 0,
-          altPoints: Array(1).fill(null),
-          data: []
+          speed: 0,
+          speedPoints: Array(1).fill(null),
+          data: [],
+          lora: props.lora
         }
       }
     
+
+      componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        this.setState({ lora: nextProps.lora });
+      }
+
     componentDidMount(){
         this.setState({data: getData([])})
+        this.connectOnSocket()
+    }
+
+    connectOnSocket(){
+      var that = this
+      var txt = ""
+      if(this.state.lora){
+        txt = "LORABMP"
+      }else{
+        txt = "BMP"
+      }
+      this.props.socket.on(txt, ({speed})=>{
+        that.setState({
+            speed: speed,
+            speedPoints: [...that.state.speedPoints.slice(-10),speed], //that.state.Xpoint.push(x)
+            data:getData(that.state.speedPoints)
+        });
+      });
     }
 
     componentWillMount(){
-        var that = this
-        this.props.socket.on('GPS1', ({alt})=>{
-          that.setState({
-            alt: alt,
-            altPoints: [...that.state.altPoints.slice(-10),alt], //that.state.Xpoint.push(x)
-            data:getData(that.state.altPoints)
-          });
-        });
-    
+      this.connectOnSocket() 
     }
 
 }
@@ -44,11 +62,11 @@ class GPSA extends Component {
 export default GPSA;
 
 
-const getData =(altPoints)=>({
-    labels: Array(altPoints.length).fill(""),
+const getData =(speedPoints)=>({
+    labels: Array(speedPoints.length).fill(""),
     datasets: [
       {
-        label: 'altitude GPS',
+        label: 'speeditude GPS',
         fill: false,
         lineTension: 0.5,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -66,7 +84,7 @@ const getData =(altPoints)=>({
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: altPoints
+        data: speedPoints
         }
     ]
 })

@@ -16,29 +16,58 @@ class BMPA extends Component {
 
     constructor(props){
         super(props);
+        this.connectOnSocket = this.connectOnSocket.bind(this)
         this.state = {
           alt: 0,
           altPoints: Array(1).fill(null),
           data: [],
+          lora: props.lora
         }
       }
-    
-    componentDidMount(){
-        this.setState({data: getData([])})
+
+    componentWillReceiveProps(nextProps) {
+      // You don't have to do this check first, but it can help prevent an unneeded render
+      this.setState({ lora: nextProps.lora });
     }
 
-    componentWillMount(){
-        var that = this
-        this.props.socket.on('BMP', ({alt})=>{
-          that.setState({
+    componentDidMount(){
+        this.setState({data: getData([])})
+        this.connectOnSocket()
+    }
+
+    connectOnSocket(){
+      var that = this
+      var txt = ""
+      if(this.state.lora){
+        txt = "LORABMP"
+      }else{
+        txt = "BMP"
+      }
+      this.props.socket.on(txt, ({alt})=>{
+        that.setState({
             alt: alt,
             altPoints: [...that.state.altPoints.slice(-10),alt], //that.state.Xpoint.push(x)
             data:getData(that.state.altPoints)
-          });
         });
-    
+      });
     }
 
+    componentWillMount(){
+      this.connectOnSocket() 
+    }
+
+    render() {
+      return (
+        <div className="component">
+            <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
+            <Card className ='grey lighten-3' textClassName='grey-text' title='Acceleration'>
+            <Line data={this.state.data}/>
+            <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
+            </Card>
+  
+        </div>
+      );
+    }
 }
 
 export default BMPA;
