@@ -24,7 +24,7 @@ export default class App extends Component {
     super(props);
     this.onSwitch = this.onSwitch.bind(this)
     this.state = {
-      LORA: false
+    LORA: false
     }
   }
   componentDidMount(){
