@@ -43,8 +43,9 @@ function cleanData(data){
         }
     
         let now = new Date();
+        let millis = new Date().getTime()
         now = now.toLocaleTimeString();
-            fs.appendFile(text+'.txt',now+";"+text+";"+response.join(";")+"\n",(err)=>{
+            fs.appendFile(text+'.txt',now+";"+millis+";"+text+";"+response.join(";")+"\n",(err)=>{
         })
     
         return response //[5.9,-8.7,6]

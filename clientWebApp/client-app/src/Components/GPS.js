@@ -10,7 +10,8 @@ export default class Gps extends Component {
        Lat: 0,
        Lon: 0,
        alt: 0,
-       marker: null
+       marker: null,
+       lora: props.lora
      }
    }
   componentDidMount(){
@@ -19,7 +20,14 @@ export default class Gps extends Component {
   componentWillMount(){
       const socket = this.props.socket
       var that = this
-      socket.on('GPS1', ({Lat,Lon,alt}) => {
+      var that = this
+      var txt = ""
+      if(this.state.lora){
+        txt = "LORAGPS1"
+      }else{
+        txt = "GPS1"
+      }
+      socket.on(txt, ({Lat,Lon,alt}) => {
         that.state.marker.setLatLng(new L.LatLng(Lat,Lon));
         that.setState({
           Lat: Lat,
