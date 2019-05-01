@@ -24,7 +24,7 @@ export default class App extends Component {
     super(props);
     this.onSwitch = this.onSwitch.bind(this)
     this.state = {
-      lora: false
+      LORA: false
     }
   }
   componentDidMount(){
@@ -32,7 +32,7 @@ export default class App extends Component {
   }
   onSwitch(e){
     this.setState({
-      lora: !this.state.lora
+      LORA: !this.state.LORA
     })
   }
   render() {
@@ -43,7 +43,7 @@ export default class App extends Component {
       <div className="switch">
     <label>
       Off
-      <input value={this.state.lora} onChange={this.onSwitch} type="checkbox"/>
+      <input value={this.state.LORA} onChange={this.onSwitch} type="checkbox"/>
       <span className="lever"></span>
       On
     </label>
@@ -57,7 +57,7 @@ export default class App extends Component {
           <GPS2 socket={socket}/>
         </Col>
         <Col s={12} m={6}>
-          <BNOA socket={socket} lora={this.state.lora}/>
+          <BNOA socket={socket} LORA={this.state.LORA}/>
         </Col>
         <Col s={12} m={6}>
           <BMPT socket={socket}/>

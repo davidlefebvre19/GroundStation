@@ -27,17 +27,29 @@ io.on('connection', client => {
 
 
 
-    client.on('LORABNOA', (data) => { 
+    client.on('LORA-BNOA', (data) => { 
         console.log(data);
-        client.broadcast.emit("LORABNOA",data)
+        client.broadcast.emit("LORA-BNOA",data)
     }); 
-    client.on('LORAPITOT', (data) => {
+    client.on('LORA-PITOT', (data) => {
         console.log(data);
-        client.broadcast.emit("LORAPITOT",data)
+        client.broadcast.emit("LORA-PITOT",data)
     });
-    client.on('LORABMP', (data) => {
+    client.on('LORA-BMP', (data) => {
         console.log(data);
-        client.broadcast.emit("LORABMP",data)
+        client.broadcast.emit("LORA-BMP",data)
+    });
+    client.on('LORA-GPS1', (data) => {
+        console.log(data);
+        client.broadcast.emit("LORA-GPS1",data)
+    });
+    client.on('LORA-GPS2', (data) => {
+        console.log(data);
+        client.broadcast.emit("LORA-GPS2",data)
+    });
+    client.on('LORA-FSR', (data) => {
+        console.log(data);
+        client.broadcast.emit("LORA-FSR",data)
     });
   });
 io.listen(3000);
