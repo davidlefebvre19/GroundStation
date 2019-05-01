@@ -55,17 +55,17 @@ function dispatch(data){
         return(true);
     }
     let h = getHeader(data)
-    if(h.includes("LORA-BNOA")){
+    if(h.includes("BNOA")){
         handleBNOA(cleanData(data))
-    }else if(h.includes("LORA-PITOT")){
+    }else if(h.includes("PITOT")){
         handlePITOT(cleanData(-data))
-    }else if(h.includes("LORA-BMP")){
+    }else if(h.includes("BMP")){
         handleBMP(cleanData(data))
-    }else if(h.includes("LORA-GPS1")){
+    }else if(h.includes("GPS1")){
         handleGPS1(cleanData(data))
-    }else if(h.includes("LORA-GPS2")){
+    }else if(h.includes("GPS2")){
         handleGPS2(cleanData(data))
-    }else if(h.includes("LORA-FSR")){
+    }else if(h.includes("FSR")){
         handleFSR(cleanData(data))
     }else if(h.includes("ERROR")){
        console.log("donnee non dispatchable "+data) 
@@ -74,30 +74,30 @@ function dispatch(data){
 
 function handleBNOA(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-BNOA", {x:datas[0], y:datas[1], z:datas[2]})
+    socket.emit(LORA+"BNOA", {x:datas[0], y:datas[1], z:datas[2]})
 }
 
 function handlePITOT(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-PITOT", {x:datas[0]})
+    socket.emit(LORA+"PITOT", {x:datas[0]})
 }
 
 function handleBMP(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
+    socket.emit(LORA+"BMP", {temp:datas[0], pres:datas[1], alt:datas[2], hum:datas[3], gas:datas[4]})
 }
 
 function handleGPS1(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-GPS1", {Lat:datas[0], Lon:datas[1], alt:datas[2]})
+    socket.emit(LORA+"GPS1", {Lat:datas[0], Lon:datas[1], alt:datas[2]})
 }
 
 function handleGPS2(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-GPS2", {x:datas[0]})
+    socket.emit(LORA+"GPS2", {x:datas[0]})
 }
 
 function handleFSR(datas){
     console.log(datas.join(";"))
-    socket.emit(LORA+"LORA-FSR", {FSR:datas[0]})
+    socket.emit(LORA+"FSR", {FSR:datas[0]})
 }

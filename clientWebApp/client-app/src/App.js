@@ -25,7 +25,7 @@ export default class App extends Component {
     this.onSwitch = this.onSwitch.bind(this)
     this.state = {
     lora: false,
-    randmo: 0
+    random: 0
     }
   }
   componentDidMount(){
@@ -43,49 +43,50 @@ export default class App extends Component {
       <div>
       <Navbar className="teal accent-3" brand='Velocity' right>
       </Navbar>
-      <div className="switch">
+      <p></p>
+      <div className="switch" style={{marginLeft: "50px"}}>
     <label>
-      Off
+      XBEE
       <input value={this.state.lora} onChange={this.onSwitch} type="checkbox"/>
       <span className="lever"></span>
-      On
+      LORA
     </label>
   </div>
 
       <Row>
-      <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
+      <p>Capting on {this.state.lora ? "Lora antenna" : "Xbee antenna"}</p>
         <Col s={12} m={6}>
-          <PITOT socket={socket} key={this.state.random} />
+          <PITOT socket={socket} key={this.state.random} lora={this.state.lora} />
         </Col>
         <Col s={12} m={6}>
-          <GPS2 socket={socket} key={this.state.random +1} />
+          <GPS2 socket={socket} key={this.state.random +1} lora={this.state.lora} />
         </Col>
         <Col s={12} m={6}>
           <BNOA socket={socket} key={this.state.random +2} lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPT socket={socket} key={this.state.random +3} />
+          <BMPT socket={socket} key={this.state.random +3} lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPP socket={socket} key={this.state.random +4} />
+          <BMPP socket={socket} key={this.state.random +4} lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPA socket={socket} key={this.state.random +5} />
+          <BMPA socket={socket} key={this.state.random +5} lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <GPSA socket={socket} key={this.state.random +6} />
+          <GPSA socket={socket} key={this.state.random +6} lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPH socket={socket} key={this.state.random +7} />
+          <BMPH socket={socket} key={this.state.random +7} lora={this.state.lora} />
         </Col>
         <Col s={12} m={6}>
-          <BMPG socket={socket} key={this.state.random +8} />
+          <BMPG socket={socket} key={this.state.random +8}  lora={this.state.lora}/>
         </Col>
         <Col s={12} m={6}>
-          <FSR socket={socket} key={this.state.random +9} />
+          <FSR socket={socket} key={this.state.random +9} lora={this.state.lora} />
         </Col>
         <Col s={12} m={6}>
-          <GPS socket={socket} key={this.state.random +10} />
+          <GPS socket={socket} key={this.state.random +10} lora={this.state.lora} />
         </Col>
       </Row>
       </div>

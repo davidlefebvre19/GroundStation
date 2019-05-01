@@ -25,30 +25,30 @@ io.on('connection', client => {
         client.broadcast.emit("FSR",data)
     });
 
-    client.on('LORA-BNOA', (data) => { 
+    client.on('LORABNOA', (data) => { 
         console.log(data);
-        client.broadcast.emit("LORA-BNOA",data)
+        client.broadcast.emit("LORABNOA",data)
     }); 
-    client.on('LORA-PITOT', (data) => {
+    client.on('LORAPITOT', (data) => {
 
         console.log(data);
-        client.broadcast.emit("LORA-PITOT",data)
+        client.broadcast.emit("LORAPITOT",data)
     });
-    client.on('LORA-BMP', (data) => {
+    client.on('LORABMP', (data) => {
         console.log(data);
-        client.broadcast.emit("LORA-BMP",data)
+        client.broadcast.emit("LORABMP",data)
     });
-    client.on('LORA-GPS1', (data) => {
+    client.on('LORAGPS1', (data) => {
         console.log(data);
-        client.broadcast.emit("LORA-GPS1",data)
+        client.broadcast.emit("LORAGPS1",data)
     });
-    client.on('LORA-GPS2', (data) => {
+    client.on('LORAGPS2', (data) => {
         console.log(data);
-        client.broadcast.emit("LORA-GPS2",data)
+        client.broadcast.emit("LORAGPS2",data)
     });
-    client.on('LORA-FSR', (data) => {
+    client.on('LORAFSR', (data) => {
         console.log(data);
-        client.broadcast.emit("LORA-FSR",data)
+        client.broadcast.emit("LORAFSR",data)
     });
   });
 io.listen(3000);

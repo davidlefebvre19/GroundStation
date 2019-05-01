@@ -7,7 +7,7 @@ class GPS2 extends Component {
     super(props);
     this.connectOnSocket = this.connectOnSocket.bind(this)
     this.state = {
-      speed: 0,
+      x: 0,
       lora: props.lora
     }
   }
@@ -18,7 +18,6 @@ class GPS2 extends Component {
   }
 
   componentDidMount(){
-    this.setState({data: getData([])})
     this.connectOnSocket()
   }
 
@@ -26,15 +25,13 @@ class GPS2 extends Component {
     var that = this
     var txt = ""
     if(this.state.lora){
-      txt = "LORABMP"
+      txt = "LORAGPS2"
     }else{
-      txt = "BMP"
+      txt = "GPS2"
     }
     this.props.socket.on(txt, ({x})=>{
       that.setState({
           x: x,
-          xPoints: [...that.state.xPoints.slice(-10),x], //that.state.Xpoint.push(x)
-          data:getData(that.state.xPoints)
       });
     });
   }
@@ -50,14 +47,14 @@ class GPS2 extends Component {
           <Card className ='grey lighten-3' textClassName='grey-text' title='SPEED GPS'>
             <ReactSpeedometer
               maxValue={80}
-              value={this.state.speed}
+              value={this.state.x}
               needleColor="steelblue"
               startColor="green"
               segments={20}
               endColor="red"
 
   />
-            <p className="center">{this.state.speed} km/h</p>
+            <p className="center">{this.state.x} km/h</p>
           </Card>
 
       </div>
