@@ -24,15 +24,18 @@ export default class App extends Component {
     super(props);
     this.onSwitch = this.onSwitch.bind(this)
     this.state = {
-      lora: false
+      lora: false,
+      random: 0
     }
   }
   componentDidMount(){
-    
+
   }
   onSwitch(e){
+    let random = Math.floor(Math.random()*(0-999999));
     this.setState({
-      lora: !this.state.lora
+      lora: !this.state.lora,
+      random: random
     })
   }
   render() {
@@ -51,37 +54,37 @@ export default class App extends Component {
 
       <Row>
         <Col s={12} m={6}>
-          <PITOT socket={socket}/>
+          <PITOT socket={socket} key={this.state.random}/>
         </Col>
         <Col s={12} m={6}>
-          <GPS2 socket={socket}/>
+          <GPS2 socket={socket} key={this.state.random+1}/>
         </Col>
         <Col s={12} m={6}>
-          <BNOA socket={socket} lora={this.state.lora}/>
+          <BNOA socket={socket} lora={this.state.lora} key={this.state.random+2}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPT socket={socket}/>
+          <BMPT socket={socket} key={this.state.random+3}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPP socket={socket}/>
+          <BMPP socket={socket} key={this.state.random+4}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPA socket={socket}/>
+          <BMPA socket={socket} key={this.state.random+5}/>
         </Col>
         <Col s={12} m={6}>
-          <GPSA socket={socket}/>
+          <GPSA socket={socket} key={this.state.random+6}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPH socket={socket}/>
+          <BMPH socket={socket} key={this.state.random+7}/>
         </Col>
         <Col s={12} m={6}>
-          <BMPG socket={socket}/>
+          <BMPG socket={socket} key={this.state.random+8}/>
         </Col>
         <Col s={12} m={6}>
-          <FSR socket={socket}/>
+          <FSR socket={socket} key={this.state.random+9}/>
         </Col>
         <Col s={12} m={6}>
-          <GPS socket={socket}/>
+          <GPS socket={socket} key={this.state.random+10}/>
         </Col>
       </Row>
       </div>

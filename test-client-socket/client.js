@@ -7,6 +7,7 @@ function getRandomInt(max) {
 setInterval(function(){
     socket.emit("BNOA",{x: getRandomInt(500),y: getRandomInt(500),z: getRandomInt(500)})
     socket.emit("SPEEDPITOT",{s: getRandomInt(50)})
+    // socket.emit("LORABNOA",{x: getRandomInt(500),y: getRandomInt(500),z: getRandomInt(500)})
 
 },1000)
 
