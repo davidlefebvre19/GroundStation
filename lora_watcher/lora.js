@@ -17,7 +17,9 @@ serialport.on('open', function(){
    });
 
 function getHeader(data){
+
     let response = data.split(": ")
+
     if(response.length>1){
         return response[0].trim()
     }else{
@@ -49,6 +51,9 @@ function cleanData(data){
     }
   }
 function dispatch(data){
+    if(isNaN(data)){
+        return(true);
+    }
     let h = getHeader(data)
     if(h.includes("LORA-BNOA")){
         handleBNOA(cleanData(data))

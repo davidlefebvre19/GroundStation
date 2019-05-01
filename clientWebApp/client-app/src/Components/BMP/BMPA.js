@@ -19,7 +19,7 @@ class BMPA extends Component {
         this.state = {
           alt: 0,
           altPoints: Array(1).fill(null),
-          data: []
+          data: [],
         }
       }
     

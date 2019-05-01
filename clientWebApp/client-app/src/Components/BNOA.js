@@ -25,7 +25,7 @@ class BNOA extends Component {
   }
   componentDidMount(){
     this.setState({data: getData([])})
-
+    this.connectOnSocket()
   }
   connectOnSocket(){
     var that = this
