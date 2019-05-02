@@ -58,7 +58,7 @@ class BMPT extends Component {
       return (
         <div className="component">
             <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
-            <Card className ='grey lighten-3' textClassName='grey-text' title='Acceleration'>
+            <Card className ='grey lighten-3' textClassName='grey-text' title='Temperature'>
             <Line data={this.state.data}/>
             <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
             </Card>

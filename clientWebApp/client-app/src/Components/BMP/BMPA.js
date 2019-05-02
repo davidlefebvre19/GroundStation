@@ -60,7 +60,7 @@ class BMPA extends Component {
       return (
         <div className="component">
             <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
-            <Card className ='grey lighten-3' textClassName='grey-text' title='Acceleration'>
+            <Card className ='grey lighten-3' textClassName='grey-text' title='Altitude (pressure)'>
             <Line data={this.state.data}/>
             <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
             </Card>
@@ -77,7 +77,7 @@ const getData =(altPoints)=>({
     labels: Array(altPoints.length).fill(""),
     datasets: [
       {
-        label: 'altitude',
+        label: 'altitude (pressure)',
         fill: false,
         lineTension: 0.5,
         backgroundColor: 'rgba(75,192,192,0.4)',

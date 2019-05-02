@@ -16,29 +16,58 @@ class BMPH extends Component {
 
     constructor(props){
         super(props);
+        this.connectOnSocket = this.connectOnSocket.bind(this)
         this.state = {
           hum: 0,
           humPoints: Array(1).fill(null),
-          data: []
+          data: [],
+          lora: props.lora
         }
       }
     
-    componentDidMount(){
+      componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        this.setState({ lora: nextProps.lora });
+      }
+
+      componentDidMount(){
         this.setState({data: getData([])})
+        this.connectOnSocket()
     }
 
-    componentWillMount(){
-        var that = this
-        this.props.socket.on('BMP', ({hum})=>{
-          that.setState({
+    connectOnSocket(){
+      var that = this
+      var txt = ""
+      if(this.state.lora){
+        txt = "LORABMP"
+      }else{
+        txt = "BMP"
+      }
+      this.props.socket.on(txt, ({hum})=>{
+        that.setState({
             hum: hum,
             humPoints: [...that.state.humPoints.slice(-10),hum], //that.state.Xpoint.push(x)
             data:getData(that.state.humPoints)
-          });
         });
-    
+      });
     }
 
+    componentWillMount(){
+      this.connectOnSocket() 
+    }
+
+    render() {
+      return (
+        <div className="component">
+            <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
+            <Card className ='grey lighten-3' textClassName='grey-text' title='Humidity'>
+            <Line data={this.state.data}/>
+            <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
+            </Card>
+  
+        </div>
+      );
+    }
 }
 
 export default BMPH;

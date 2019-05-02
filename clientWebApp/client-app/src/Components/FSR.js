@@ -38,9 +38,9 @@ class FSR extends Component {
       var that = this
       var txt = ""
       if(this.state.lora){
-        txt = "LORABMP"
+        txt = "LORAFSR"
       }else{
-        txt = "BMP"
+        txt = "FSR"
       }
       this.props.socket.on(txt, ({FSR})=>{
         that.setState({
@@ -53,6 +53,19 @@ class FSR extends Component {
 
     componentWillMount(){
       this.connectOnSocket() 
+    }
+
+    render() {
+      return (
+        <div className="component">
+            <p>Capting on {this.state.lora ? "Lora antenna" : "xbee antenna"}</p>
+            <Card className ='grey lighten-3' textClassName='grey-text' title='Humidity'>
+            <Line data={this.state.data}/>
+            <p className="center">{this.state.x}, {this.state.y},{this.state.z}</p>
+            </Card>
+  
+        </div>
+      );
     }
 
 }
