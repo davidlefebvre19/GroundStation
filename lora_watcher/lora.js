@@ -5,14 +5,20 @@ var socket = io.connect('http://localhost:3000', {reconnect: true});
 var LORA = 'LORA'
 var serialport = new SerialPort("/dev/ttyUSB1",{
 baudRate: 9600,
-parser: SerialPort.parsers.readline("\n")
+parser: SerialPort.parsers.readline("/n")
 });
 
 serialport.on('open', function(){
     console.log('---Lancement lecture---');
     serialport.on('data', function(data){
-        data = data.replace(/\uFFFD/g, '') //regex
-        dispatch(data);
+        //console.log(data)
+        //if(!isNaN(data)){
+            //data = data.split("+")
+            //data = data[0]
+            data = data.replace(/\uFFFD/g, '') //regex
+            dispatch(data);
+          //}
+
     });
    });
 
@@ -52,14 +58,16 @@ function cleanData(data){
     }
   }
 function dispatch(data){
-    if(isNaN(data)){
+    console.log(data)
+    /*if(isNaN(data)){
         return(true);
-    }
+    }*/
     let h = getHeader(data)
+    console.log(h)
     if(h.includes("BNOA")){
         handleBNOA(cleanData(data))
     }else if(h.includes("PITOT")){
-        handlePITOT(cleanData(-data))
+        handlePITOT(cleanData(data))
     }else if(h.includes("BMP")){
         handleBMP(cleanData(data))
     }else if(h.includes("GPS1")){
